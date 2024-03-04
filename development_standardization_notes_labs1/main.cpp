@@ -108,8 +108,6 @@ int main() {
     }
 
     delete[] l;
-    return 0;
-
     system("pause");
     return 0;
 }
