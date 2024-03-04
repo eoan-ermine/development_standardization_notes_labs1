@@ -1,33 +1,34 @@
 #include <iostream>
+#include <iomanip>
 #include <math.h>
 
 using namespace std;
 
-double z(doublex1, doublex2) {
+double z(double x1, double x2) {
     return pow(x1, 2) + 3 * pow(x2, 2);
 }
 
-double g1(doublex1, doublex2) {
+double g1(double x1, double x2) {
     return -x2 - 3 * pow(x1, 2) + 2;
 }
 
-double g2(doublex1, doublex2) {
+double g2(double x1, double x2) {
     return x2 + x1 - 1;
 }
 
 int main() {
     setlocale(LC_ALL, "russian");
 
-    double xla, x1b, x2a, x2b, h, minz;
-    int r, t, m = 0;
+    double x1a, x1b, x2a, x2b, h, minz=0;
+    int r = 0, t = 0, m = 0;
 
     cout<<"x1a=";
-    cin>>xla;
+    cin>>x1a;
 
     cout<<"x1b=";
     cin>>x1b;
 
-    cout<<"x12a=";
+    cout<<"x2a=";
     cin>>x2a;
 
     cout<<"x2b=";
@@ -36,8 +37,8 @@ int main() {
     cout<<"h=";
     cin>>h;
 
-    double n1 = sqrt(pow((x1b - x1a), 2))/h;
-    double n2 = sqrt(pow((x1b - x2a), 2))/h;
+    int n1 = sqrt(pow((x1b - x1a), 2))/h;
+    int n2 = sqrt(pow((x2b - x2a), 2))/h;
 
     double* x1 = new double [n1];
     
@@ -75,16 +76,15 @@ int main() {
 
     cout<<endl;
 
-    for (inti=0; i<n1; i++) {
-        cout<<right<<setw(4)<<x1[j]<<"|";
+    for (int i=0; i<n1; i++) {
         for (int j=0; j<n2; j++) {
-            if (g1(x1[i],x2[j]) > 0 and g2(x1[i], x2[j] >= 0) {
+            if (g1(x1[i],x2[j]) >= 0 and g2(x1[i], x2[j]) >=0) {
                 l[i][j] = z(x1[i], x2[j]);
                 if (m<1) {
                     minz = l[i][j];
                     m=m+1;
                 }
-                if (minz>l[i][j]) {
+                if (minz<l[i][j]) {
                     minz = l[i][j];
                     r=i;
                     t=j;
@@ -98,8 +98,7 @@ int main() {
     }
 
     cout<<endl;
-    cout<<"minz=    "<<minz<<" "<<"x1"<<x1[r]<<"
-    "<<"x2="<<x2[t]<<endl;
+    cout<<"minz="<<minz<<'\t'<<"x1="<<x1[r]<<'\t'<<"x2="<<x2[t]<<endl;
 
     delete[] x1;
     delete[] x2;
